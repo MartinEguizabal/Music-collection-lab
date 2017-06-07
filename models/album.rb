@@ -34,11 +34,27 @@ class Album
     return all_albums.map { |album| Album.new(album)}
   end
 
-  def artists
-    sql = "SELECT * FROM artists WHERE "
+  def Album.delete_all()
+    sql = "DELETE FROM albums"
+    SqlRunner.run(sql)
   end
 
+  def delete_albums
+    sql = "DELETE FROM albums WHERE id = #{id}"
+    delete_albums = SqlRunner.run(sql)
+    return delete_albums.map { |album| Album.new(album)}
+  end
 
+  def update_albums()
+    sql = "UPDATE albums SET #{title} WHERE id = #{id}"
+    update_albums = SqlRunner.run(sql)
+    return update_albums.map { |album| Album.new(album)}
+  end
 
-
+  def artists
+    sql = "SELECT * FROM artists WHERE id = #{@artist_id}"
+    results = SqlRunner.run(sql)
+    artists = results.map { |artist| Artist.new(artist)}
+    return artists
+  end
 end
